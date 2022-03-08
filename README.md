@@ -11,6 +11,7 @@
 <img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white">
 </a>
 
+![GitHub stats](https://github-readme-stats.vercel.app/api?username=ewertonnunes&show_icons=true&theme=tokyonight)
+
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=ewertonnunes&theme=tokyonight)
 
-<img src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=ewertonnunes&layout=compact&langs_count=8&theme=tokyonight&include_all_commits=true&count_private=true"/>

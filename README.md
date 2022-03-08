@@ -1,4 +1,4 @@
-### Hi there 👋
+### Yo 👋
 
 - 🔭 I’m currently working as SRE Tech Engineer.
 - 🌱 I’m currently learning C Programming, Golang and Python.

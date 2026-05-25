@@ -1,0 +1,65 @@
+# {{ project.app_name }}
+
+{{ project.description }}
+
+- **Go**: {{ go.version }} (toolchain {{ go.toolchain }})
+- **Módulo**: `{{ project.module }}`
+- **Versão**: {{ project.version }}
+
+## Estrutura
+
+```
+{{ project.name }}/
+├── go.mod
+├── cmd/
+│   └── server/
+│       └── main.go
+├── internal/
+│   └── handler/
+│       ├── health.go
+│       └── health_test.go
+├── Dockerfile
+├── Makefile
+└── README.md
+```
+
+## Rodar localmente
+
+```bash
+go run ./cmd/server
+curl http://localhost:{{ server.port }}{{ server.health_endpoint }}
+# {"status":"UP","app":"{{ project.app_name }}","timestamp":"..."}
+```
+
+## Rodar testes
+
+```bash
+make test         # rápido
+make test-race    # com detector de race
+make vet          # análise estática
+make check        # vet + test
+```
+
+## Build do binário
+
+```bash
+make build
+./bin/{{ build.binary_name }}
+```
+
+## Build do container
+
+```bash
+make docker
+docker run -p {{ server.port }}:{{ server.port }} {{ project.name }}:{{ project.version }}
+```
+
+## Endpoints
+
+- `GET {{ server.health_endpoint }}` — retorna `{"status":"UP","app":"…","timestamp":"…"}`
+
+## Reprodutibilidade
+
+Este projeto foi gerado deterministicamente por `go-app-generator`.
+A partir do mesmo `spec.yaml` + `files/` + `generate.py`, o projeto
+inteiro é reproduzido byte-a-byte. Verificável via `lockfile.json`.

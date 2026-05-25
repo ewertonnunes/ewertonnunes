@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="{{ build.encoding }}"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>{{ spring_boot.version }}</version>
+        <relativePath>{{ spring_boot.parent_relative_path }}</relativePath>
+    </parent>
+
+    <groupId>{{ project.group_id }}</groupId>
+    <artifactId>{{ project.artifact_id }}</artifactId>
+    <version>{{ project.version }}</version>
+    <name>{{ project.app_name }}</name>
+    <description>{{ project.description }}</description>
+
+    <properties>
+        <java.version>{{ java.version }}</java.version>
+        <maven.compiler.source>{{ java.version }}</maven.compiler.source>
+        <maven.compiler.target>{{ java.version }}</maven.compiler.target>
+        <project.build.sourceEncoding>{{ build.encoding }}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>{{ build.encoding }}</project.reporting.outputEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>{{ build.finalName }}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

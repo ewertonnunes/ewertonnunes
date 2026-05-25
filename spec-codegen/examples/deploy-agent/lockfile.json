@@ -1,0 +1,29 @@
+{
+  "file_count": 23,
+  "files": {
+    ".env.example": "2190d4195836536960c62b65418e6273832febcc4ecba6f6bbed72af8dc076a0",
+    ".github/workflows/ci.yaml": "677d7ca8676f63f411af77295c5947014ad2e462b94ae55b1cb3956fbd730ca9",
+    ".gitignore": "b58396dd8e8ff005b3922dcd944972b783db73abc957e58ae4b3748057ed2bfb",
+    "Makefile": "09074d5762166d8d3feb262de9a9fb6baacaec22a678a42a223130206cf5cdf8",
+    "README.md": "86fa411ba3fa7de039b4251dc21c357df07bff801714133b399104efefac868b",
+    "evals/golden_cases.yaml": "798dd89ff1724f9272689c909c650c7623d556b27f46c9171365c56735eaaf18",
+    "evals/run_evals.py": "6da715fdaedd9391ac5226142ce52373573ce05889facb52591f82d52c21631e",
+    "policies/deployment.rego": "7573d401f488b472cd2b31b5d4214529418c86c35fc9b7d5f1d44582c40f2651",
+    "pyproject.toml": "3bba15789dc5e3f3c96dc61eb6e1ef78cfe5f08a3a00ac84bc631018ae86a34c",
+    "src/deploy_agent/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/deploy_agent/__main__.py": "aad8fe8e8a44afeb0156846e87f310369613b712b502190d1e5c2ed80aba9a9c",
+    "src/deploy_agent/audit.py": "70f4b98a09a0e0e3bedf6892b550c937a599e3362bd864e1ded462d36e555c7d",
+    "src/deploy_agent/extractor.py": "34090c5cf52806fac2d144a21ef8de7da40bf5d07ec607994cc02db50f89726b",
+    "src/deploy_agent/git_ops.py": "45072a1abaf09f3f1131ba6b328824531bb6d7484247c8e50b2b0988776db3ea",
+    "src/deploy_agent/renderer.py": "75d773bfa82eefc3d9dbc5816ee0b5fdceaec69b2c3a8e9d9eab9c70e259c795",
+    "src/deploy_agent/schemas.py": "24aa8d4e3b1f30ed6db56bbc3a156864ed0429b3bfd416ee943e28e2a1ff47ab",
+    "src/deploy_agent/validator.py": "4356a4b74c7252420b88debecbbeb9839d992ed1cfdb5de23079997d6a9b017d",
+    "templates/kubernetes/deployment.yaml.j2": "e10f0764ec22b1db00c52bd48d42b9023a9f2e4811f0d0f4449e9b528d1809ba",
+    "templates/kubernetes/service.yaml.j2": "cf9ded6ab43d149e197c599b8a4761f4c83d0a590bb56c8ff29c0edc5ecc01d3",
+    "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/test_renderer.py": "04ccde82e5f6992a8b460282b576b93d9a94cf2a26f9815281e72c679a3f3012",
+    "tests/test_schemas.py": "15a6c621ee1e2fc288a169812c2d7e8ff2230ffbf30f786d8de0b24db59c5e64",
+    "tests/test_validator.py": "03935d4849cf254a753b9d195034a079f9c3d04551b626c98d4f5d555368e222"
+  },
+  "version": 1
+}

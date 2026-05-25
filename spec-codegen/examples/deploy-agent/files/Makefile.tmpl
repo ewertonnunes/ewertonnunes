@@ -1,0 +1,38 @@
+.PHONY: install test eval lint typecheck policy clean run dry-run
+
+PYTHON ?= python3
+REPO   ?= /tmp/manifests-repo
+
+install:
+	pip install -e ".[dev]"
+
+test:
+	pytest -v
+
+eval:
+	$(PYTHON) evals/run_evals.py
+
+lint:
+	ruff check src tests evals
+
+typecheck:
+	mypy src
+
+policy:
+	conftest verify --policy policies
+
+check: lint typecheck test policy
+
+dry-run:
+	$(PYTHON) -m {{ project.name | replace('-', '_') }} \
+	  "Deploy payment-api v1.2.3 to staging, team payments, image payments/payment-api" \
+	  --repo $(REPO) --dry-run --skip-cluster
+
+run:
+	$(PYTHON) -m {{ project.name | replace('-', '_') }} \
+	  "Deploy payment-api v1.2.3 to staging, team payments, image payments/payment-api" \
+	  --repo $(REPO) --skip-cluster
+
+clean:
+	find . -type d -name __pycache__ -exec rm -rf {} +
+	rm -rf .pytest_cache .mypy_cache .ruff_cache *.egg-info

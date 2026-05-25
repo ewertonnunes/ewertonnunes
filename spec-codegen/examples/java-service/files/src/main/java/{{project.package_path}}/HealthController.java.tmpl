@@ -1,0 +1,25 @@
+package {{ project.package }};
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.time.Instant;
+
+/**
+ * Health endpoint for {{ project.app_name }}.
+ *
+ * Uses a Java 21+ record for the response shape.
+ */
+@RestController
+public class HealthController {
+
+    public record HealthResponse(String status, String app, Instant timestamp) {}
+
+    @GetMapping("{{ server.health_endpoint }}")
+    public ResponseEntity<HealthResponse> health() {
+        return ResponseEntity.ok(
+            new HealthResponse("UP", "{{ project.app_name }}", Instant.now())
+        );
+    }
+}

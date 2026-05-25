@@ -1,0 +1,45 @@
+package handler_test
+
+import (
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"testing"
+
+	"{{ project.package_health }}"
+)
+
+func TestHealth_OK(t *testing.T) {
+	h := handler.NewHealth("{{ project.app_name }}")
+	req := httptest.NewRequest(http.MethodGet, "{{ server.health_endpoint }}", nil)
+	rec := httptest.NewRecorder()
+
+	h.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status = %d, want %d", rec.Code, http.StatusOK)
+	}
+
+	var body handler.HealthResponse
+	if err := json.NewDecoder(rec.Body).Decode(&body); err != nil {
+		t.Fatalf("decode: %v", err)
+	}
+	if body.Status != "UP" {
+		t.Errorf("status = %q, want %q", body.Status, "UP")
+	}
+	if body.App != "{{ project.app_name }}" {
+		t.Errorf("app = %q, want %q", body.App, "{{ project.app_name }}")
+	}
+}
+
+func TestHealth_RejectsNonGET(t *testing.T) {
+	h := handler.NewHealth("{{ project.app_name }}")
+	req := httptest.NewRequest(http.MethodPost, "{{ server.health_endpoint }}", nil)
+	rec := httptest.NewRecorder()
+
+	h.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusMethodNotAllowed {
+		t.Fatalf("status = %d, want %d", rec.Code, http.StatusMethodNotAllowed)
+	}
+}

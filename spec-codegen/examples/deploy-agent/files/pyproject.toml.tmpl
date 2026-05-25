@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "{{ project.name }}"
+version = "{{ project.version }}"
+description = "{{ project.description }}"
+requires-python = "{{ project.python_requires }}"
+dependencies = [
+{%- for dep in runtime_dependencies %}
+    "{{ dep }}",
+{%- endfor %}
+]
+
+[project.optional-dependencies]
+dev = [
+{%- for dep in dev_dependencies %}
+    "{{ dep }}",
+{%- endfor %}
+]
+
+[project.scripts]
+{{ cli.command }} = "{{ cli.entry_point }}"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "--cov={{ project.name | replace('-', '_') }} --cov-report=term-missing"
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py{{ project.python_version | replace('.', '') }}"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "RUF"]
+
+[tool.mypy]
+python_version = "{{ project.python_version }}"
+strict = true
+files = ["src"]

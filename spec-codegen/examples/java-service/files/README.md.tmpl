@@ -1,0 +1,60 @@
+# {{ project.app_name }}
+
+{{ project.description }}
+
+- **Java**: {{ java.version }} ({{ java.vendor }})
+- **Spring Boot**: {{ spring_boot.version }}
+- **Build**: Maven
+- **Pacote**: `{{ project.package }}`
+
+## Estrutura
+
+```
+{{ project.artifact_id }}/
+├── pom.xml
+├── Dockerfile
+├── src/
+│   ├── main/
+│   │   ├── java/{{ project.package_path }}/
+│   │   │   ├── {{ project.main_class }}.java
+│   │   │   └── HealthController.java
+│   │   └── resources/
+│   │       └── application.yml
+│   └── test/
+│       └── java/{{ project.package_path }}/
+│           └── HealthControllerTest.java
+└── README.md
+```
+
+## Rodar localmente
+
+```bash
+./mvnw spring-boot:run
+curl http://localhost:{{ server.port }}{{ server.health_endpoint }}
+# {"status":"UP","app":"{{ project.app_name }}","timestamp":"..."}
+```
+
+## Rodar testes
+
+```bash
+./mvnw test
+```
+
+## Build do container
+
+```bash
+docker build -t {{ project.artifact_id }}:{{ project.version }} .
+docker run -p {{ server.port }}:{{ server.port }} {{ project.artifact_id }}:{{ project.version }}
+```
+
+## Endpoints
+
+- `GET {{ server.health_endpoint }}` — health check customizado
+- `GET /actuator/health` — health check do Spring Actuator
+- `GET /actuator/info` — info do Spring Actuator
+
+## Reprodutibilidade
+
+Este projeto foi gerado deterministicamente por `java25-app-generator`.
+A partir do mesmo `spec.yaml` + `files/` + `generate.py`, o projeto
+inteiro é reproduzido byte-a-byte. Verificável via `lockfile.json`.

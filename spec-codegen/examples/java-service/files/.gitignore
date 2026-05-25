@@ -1,0 +1,17 @@
+target/
+.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+*.class
+*.jar
+*.war
+*.ear
+*.log
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+.factorypath
+hs_err_pid*
+replay_pid*

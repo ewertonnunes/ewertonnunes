@@ -1,0 +1,40 @@
+// Package handler contains HTTP handlers for {{ project.app_name }}.
+package handler
+
+import (
+	"encoding/json"
+	"net/http"
+	"time"
+)
+
+// HealthResponse is the JSON shape returned by the health endpoint.
+type HealthResponse struct {
+	Status    string    `json:"status"`
+	App       string    `json:"app"`
+	Timestamp time.Time `json:"timestamp"`
+}
+
+// Health is the health-check HTTP handler.
+type Health struct {
+	app string
+	now func() time.Time
+}
+
+// NewHealth returns a Health handler that reports the given app name.
+func NewHealth(app string) *Health {
+	return &Health{app: app, now: time.Now}
+}
+
+// ServeHTTP implements http.Handler.
+func (h *Health) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	_ = json.NewEncoder(w).Encode(HealthResponse{
+		Status:    "UP",
+		App:       h.app,
+		Timestamp: h.now().UTC(),
+	})
+}

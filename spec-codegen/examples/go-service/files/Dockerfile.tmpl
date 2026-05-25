@@ -1,0 +1,14 @@
+FROM {{ docker.builder_image }} AS build
+WORKDIR /workspace
+COPY go.mod go.sum* ./
+RUN go mod download || true
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -trimpath -ldflags="-s -w" -o /out/{{ build.binary_name }} ./cmd/server
+
+FROM {{ docker.runtime_image }} AS runtime
+RUN addgroup -S {{ docker.app_user }} && adduser -S -u {{ docker.app_uid }} {{ docker.app_user }} -G {{ docker.app_user }}
+USER {{ docker.app_user }}
+WORKDIR /app
+COPY --from=build /out/{{ build.binary_name }} /app/{{ build.binary_name }}
+EXPOSE {{ server.port }}
+ENTRYPOINT ["/app/{{ build.binary_name }}"]

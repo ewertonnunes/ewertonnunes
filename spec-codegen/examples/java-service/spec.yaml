@@ -1,0 +1,33 @@
+# ProjectSpec for a Java 25 + Spring Boot 4 application.
+#
+# Same pattern as the deploy-agent-generator: this file is the single
+# source of truth. Change here, regenerate, commit lockfile.
+
+project:
+  group_id: "com.example"
+  artifact_id: "health-api"
+  version: "1.0.0"
+  description: "Sample Java 26 Spring Boot REST API"
+  app_name: "Health API"
+
+java:
+  version: 26
+  vendor: "temurin"   # eclipse-temurin docker image
+
+spring_boot:
+  version: "4.0.6"
+  parent_relative_path: ""
+
+server:
+  port: 8080
+  health_endpoint: "/healthz"
+
+build:
+  encoding: "UTF-8"
+  finalName: "app"
+
+docker:
+  jdk_image: "eclipse-temurin:26-jdk-alpine"
+  jre_image: "eclipse-temurin:26-jre-alpine"
+  app_user: "appuser"
+  app_uid: 10001

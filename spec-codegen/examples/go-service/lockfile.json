@@ -1,0 +1,14 @@
+{
+  "file_count": 8,
+  "files": {
+    ".gitignore": "410d988f4b074b0ffc8ab73e4c17a0e02e7532c57727481198882d6ba39ccf23",
+    "Dockerfile": "1cbc46babeef561dbebae294db760f155b35e19fc08eb69fde270329e38cb3dd",
+    "Makefile": "ff90f11e81d578788720b36a7e5fc9760eb19313fa228ab5679e1641607393ce",
+    "README.md": "71d97181250b1f257d6f55f459da03c61c0e3eb88edf53abbebaddc19c9a6512",
+    "cmd/server/main.go": "1b5a95d5bb2ec54b6e617f0dbc09d655d69a615c6618d141feaedbfa7e277031",
+    "go.mod": "7294b5f9d285c6261a09c0f2d1b4dae0723c1505a91f37f25d6b75949e5d871f",
+    "internal/handler/health.go": "f86e0ac663a6c50ec833c1cd11e22d126e7990b053a0e7a22ec86738b367c55d",
+    "internal/handler/health_test.go": "70913edc6ca7bce8517dd83fb35ad515434e896212d7fb8e78e0ecdaae7aeea1"
+  },
+  "version": 1
+}

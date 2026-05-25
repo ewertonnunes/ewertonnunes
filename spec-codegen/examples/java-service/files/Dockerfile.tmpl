@@ -1,0 +1,14 @@
+FROM {{ docker.jdk_image }} AS build
+WORKDIR /workspace
+COPY .mvn .mvn
+COPY mvnw pom.xml ./
+COPY src src
+RUN ./mvnw -B -DskipTests package
+
+FROM {{ docker.jre_image }} AS runtime
+RUN addgroup -S {{ docker.app_user }} && adduser -S -u {{ docker.app_uid }} {{ docker.app_user }} -G {{ docker.app_user }}
+USER {{ docker.app_user }}
+WORKDIR /app
+COPY --from=build /workspace/target/{{ build.finalName }}.jar app.jar
+EXPOSE {{ server.port }}
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

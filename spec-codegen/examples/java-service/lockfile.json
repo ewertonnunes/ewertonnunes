@@ -1,0 +1,14 @@
+{
+  "file_count": 8,
+  "files": {
+    ".gitignore": "1673cb9e86d1107af4ffd9c5eff32d8d513c3abf27ff57856b398fa6d6fac833",
+    "Dockerfile": "7a37e47184829c72a866bbabcf4fc6ba9d963073996b91e7a5e56dead2258236",
+    "README.md": "3697dc6aad4cefad22429a9ec22a41ca370ad2ddf802ebe0e3f618a37ef29b38",
+    "pom.xml": "187e0f060b48c9e1fff62141b84cb50b63dd808598132f0e4713f6c4118b415f",
+    "src/main/java/com/example/healthapi/HealthApiApplication.java": "279ea3def6dce06df726e68f39bf0617c764bdc6a3e15535d2186cbda503a6bf",
+    "src/main/java/com/example/healthapi/HealthController.java": "5ef3f5bd649c6dab8a3122159ad3d2dbb420a514646d7f98f55afa9ce6b78dee",
+    "src/main/resources/application.yml": "7f0f8db2a4a72ec89a07fa243977e7403e157e59b4acb710858b697b7a268538",
+    "src/test/java/com/example/healthapi/HealthControllerTest.java": "a303bb4071376d288360149d77b82b34d084a9db52e8505bd7345ba01607ae19"
+  },
+  "version": 1
+}

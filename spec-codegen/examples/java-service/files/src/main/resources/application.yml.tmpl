@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: {{ project.artifact_id }}
+
+server:
+  port: {{ server.port }}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

@@ -1,0 +1,65 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "{{ ci.python_versions[0] }}"
+          cache: pip
+
+      - name: Install conftest
+        run: |
+          curl -sSL https://github.com/open-policy-agent/conftest/releases/download/v{{ ci.conftest_version }}/conftest_{{ ci.conftest_version }}_Linux_x86_64.tar.gz \
+            | sudo tar -xz -C /usr/local/bin conftest
+
+      - name: Install project
+        run: |
+          pip install -e ".[dev]"
+
+      - name: Lint
+        run: |
+          ruff check src tests evals
+
+      - name: Type-check
+        run: |
+          mypy src
+
+      - name: Unit tests
+        run: |
+          pytest -v
+
+      - name: Policy syntax check
+        run: |
+          conftest verify --policy policies
+{% if ci.run_evals_on_pr %}
+  eval:
+    # Runs only on PRs that touch the agent. Requires ANTHROPIC_API_KEY
+    # in repo secrets. Skipped on forks (no secret access).
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "{{ ci.python_versions[0] }}"
+          cache: pip
+
+      - name: Install project
+        run: pip install -e ".[dev]"
+
+      - name: Run eval suite
+        env:
+          ANTHROPIC_API_KEY: ${{ '{{' }} secrets.ANTHROPIC_API_KEY {{ '}}' }}
+        run: python evals/run_evals.py
+{%- endif %}

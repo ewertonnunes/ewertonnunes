@@ -1,0 +1,70 @@
+# Golden cases for the deploy-agent eval suite.
+#
+# Each case pins the EXACT parameters the LLM is expected to extract.
+# Run after any prompt change, model upgrade, or schema change. A diff
+# here is either a regression or an intentional behavior change that
+# needs review.
+
+- name: explicit_prod_deploy
+  request: >
+    Deploy payment-api version v2.3.1 to prod with 3 replicas,
+    1Gi memory and 500m CPU. Team is payments, image
+    payments/payment-api, port 8080.
+  expected:
+    service_name: payment-api
+    environment: prod
+    team: payments
+    image: payments/payment-api
+    version: v2.3.1
+    replicas: 3
+    memory: 1Gi
+    cpu: 500m
+    port: 8080
+    confidence: high
+
+- name: staging_defaults_applied
+  request: >
+    Deploy auth-service v1.0.0 to staging. Team auth,
+    image auth/auth-service.
+  expected:
+    service_name: auth-service
+    environment: staging
+    team: auth
+    image: auth/auth-service
+    version: v1.0.0
+    replicas: 2
+    memory: 512Mi
+    cpu: 250m
+    port: 8080
+    confidence: high
+
+- name: dev_smallest_resources
+  request: >
+    Quick dev deploy of checkout-api v0.1.0 (team checkout,
+    image checkout/checkout-api).
+  expected:
+    service_name: checkout-api
+    environment: dev
+    team: checkout
+    image: checkout/checkout-api
+    version: v0.1.0
+    replicas: 1
+    memory: 256Mi
+    cpu: 100m
+    port: 8080
+    confidence: high
+
+- name: ambiguous_request_low_confidence
+  request: >
+    Put data-pipeline live somewhere with the latest version.
+  expected_outcome: low_confidence_or_failure
+  # The agent must NOT invent a version. Either confidence=low with
+  # safe defaults, or it should fail extraction entirely. Anything else
+  # (e.g. confidence=high with version=v1.0.0) is a regression.
+
+- name: rejects_invalid_service_name
+  request: >
+    Deploy Payment_API v1.0.0 to prod.
+  expected_outcome: extraction_failed_or_normalized
+  # Either fail, or normalize to payment-api - both acceptable.
+  # Inventing arbitrary names is not.

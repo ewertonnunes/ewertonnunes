@@ -1,0 +1,30 @@
+# ProjectSpec for a Go 1.26 REST API.
+# Same pattern as the Java generator: this file is the single source
+# of truth. Change here, regenerate, commit lockfile.
+
+project:
+  module: "github.com/example/health-api"
+  name: "health-api"
+  version: "1.0.0"
+  description: "Sample Go 1.26 REST API with health endpoint"
+  app_name: "Health API"
+
+go:
+  version: "1.26"
+  toolchain: "go1.26.3"
+
+server:
+  port: 8080
+  health_endpoint: "/healthz"
+  read_timeout_seconds: 5
+  write_timeout_seconds: 10
+  shutdown_timeout_seconds: 15
+
+build:
+  binary_name: "app"
+
+docker:
+  builder_image: "golang:1.26.3-alpine"
+  runtime_image: "alpine:3.21"
+  app_user: "appuser"
+  app_uid: 10001
